@@ -3,15 +3,11 @@
 		<div class="sixteen columns">
 			<div class="block-table">
 				<% content_for :page_title do %>
-					<%= Spree.t(:listing_newsletter_subscribers) %>
-				<% end %>
-				<div class="table-cell">
-					<h1 class="page-title ">Listando usuários</h1>
-				</div>
-				
+					<%= I18n.t(:listing_newsletter_subscribers) %>
+				<% end %>				
 				<% content_for :page_actions do %>
 					<li id="new_newsletter_subscriber_link">
-						<%= button_link_to Spree.t(:new_newsletter_subscriber), new_object_url, { :remote => true, :icon => 'icon-plus', :id => 'admin_new_newsletter_subscriber' } %>
+						<%= button_link_to I18n.t(:new_newsletter_subscriber), new_object_url, { :remote => true, :icon => 'icon-plus', :id => 'admin_new_newsletter_subscriber' } %>
 					</li>
 				<% end %>
 			</div>
