@@ -3,7 +3,7 @@ module Spree
     class NewsletterSubscribersController < ResourceController
 	
 		def index
-			@newsletter_subscribers = Spree::NewsletterSubscriber.paginate
+			@newsletter_subscribers = Spree::NewsletterSubscriber.page(params[:page]).per(Spree::Config[:admin_products_per_page])
 		end
 	
     end
