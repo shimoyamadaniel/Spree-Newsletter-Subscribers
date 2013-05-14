@@ -1,19 +1,12 @@
-<div id="content-header" data-hook="">
-	<div class="container">
-		<div class="sixteen columns">
-			<div class="block-table">
-				<% content_for :page_title do %>
-					<%= I18n.t(:listing_newsletter_subscribers) %>
-				<% end %>				
-				<% content_for :page_actions do %>
-					<li id="new_newsletter_subscriber_link">
-						<%= button_link_to I18n.t(:new_newsletter_subscriber), new_object_url, { :icon => 'icon-plus', :id => 'admin_new_newsletter_subscriber' } %>
-					</li>
-				<% end %>
-			</div>
-		</div>
-	</div>
-</div>
+<% content_for :page_title do %>
+	<%= I18n.t(:listing_newsletter_subscribers) %>
+<% end %>				
+<% content_for :page_actions do %>
+	<li id="new_newsletter_subscriber_link">
+		<%= button_link_to I18n.t(:new_newsletter_subscriber), new_object_url, { :icon => 'icon-plus', :id => 'admin_new_newsletter_subscriber' } %>
+	</li>
+<% end %>
+
 <table class="index" id="listing_newsletter_subscribers" data-hook>
 	<colgroup>
 		<col style="width: 85%">
