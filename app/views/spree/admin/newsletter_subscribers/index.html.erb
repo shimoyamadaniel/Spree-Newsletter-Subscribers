@@ -7,31 +7,53 @@
 				<% end %>				
 				<% content_for :page_actions do %>
 					<li id="new_newsletter_subscriber_link">
-						<%= button_link_to I18n.t(:new_newsletter_subscriber), new_object_url, { :remote => true, :icon => 'icon-plus', :id => 'admin_new_newsletter_subscriber' } %>
+						<%= button_link_to I18n.t(:new_newsletter_subscriber), new_object_url, { :icon => 'icon-plus', :id => 'admin_new_newsletter_subscriber' } %>
 					</li>
 				<% end %>
 			</div>
 		</div>
 	</div>
 </div>
-
-<h1><%= t(:newsletter_subscribers) %></h1>
-<table class="index">
-  <thead>
-    <tr data-hook="categories_header">
-      <th><%= t(:email) %></th>
-      <th><%= t(:action) %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @newsletter_subscribers.each do |newsletter_subscriber|%>
-    <tr id="<%= spree_dom_id newsletter_subscriber %>" data-hook="newsletter_subscriber_row">
-      <td style="width:350px;"><%= newsletter_subscriber.email %></td>
-      <td>
-        <%= link_to_edit newsletter_subscriber %> &nbsp;
-        <%= link_to_delete newsletter_subscriber %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
+<table class="index" id="listing_newsletter_subscribers" data-hook>
+	<colgroup>
+		<col style="width: 85%">
+		<col style="width: 15%">
+	</colgroup>
+	<thead>
+		<tr data-hook="admin_newsletter_subscribers_index_headers">
+			<th><%= sort_link @search, :email, t(:newsletter_subscribers), {}, {:title => 'newsletter_subscribers_email_title'} %></th>
+			<th data-hook="admin_newsletter_subscribers_index_header_actions" class="actions"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @newsletter_subscribers.each do |newsletter_subscriber|%>
+			<tr id="<%= spree_dom_id newsletter_subscriber %>" data-hook="admin_newsletter_subscribers_index_rows" class="<%= cycle('odd', 'even')%>">
+				<td class='newsletter_subscribers_email'><%=link_to newsletter_subscriber.email, object_url(newsletter_subscriber) %></td>
+				<td data-hook="admin_newsletter_subscriber_index_row_actions" class="actions">
+					<%= link_to_edit newsletter_subscriber, :no_text => true %>
+					<%= link_to_delete newsletter_subscriber, :no_text => true %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
 </table>
+
+<%= paginate @newsletter_subscribers %>
+
+<% content_for :sidebar_title do %>
+  <%= t(:search) %>
+<% end %>
+
+<% content_for :sidebar do %>
+  <div class="box align-center" data-hook="admin_newsletter_subscribers_index_search">    
+    <%= search_form_for [:admin, @search] do |f| %>
+      <div class="field">
+        <%= f.label t(:email) %> <br>
+        <%= f.text_field :email_cont, :class => 'fullwidth' %>
+      </div>
+      <div data-hook="admin_newsletter_subscribers_index_search_buttons">
+        <%= button t(:search), 'icon-search' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
